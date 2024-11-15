@@ -45,10 +45,11 @@ static void disp_flush(lv_display_t *disp_drv, const lv_area_t *area, uint8_t *p
     {
         int32_t width = area->x2 - area->x1 + 1;
         int32_t height = area->y2 - area->y1 + 1;
+        M5.Display.startWrite();
         M5.Display.setAddrWindow(area->x1, area->y1, width, height);
-        M5.Display.pushPixels((uint16_t *)px_map, width * height, true);
+        M5.Display.pushPixelsDMA((uint16_t *)px_map, width * height, true);
+        M5.Display.endWrite();
     }
 
-    M5.Display.waitDisplay();
     lv_display_flush_ready(disp_drv);
 }

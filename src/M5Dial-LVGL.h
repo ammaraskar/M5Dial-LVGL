@@ -13,12 +13,18 @@
 #include "lv_port_disp.h"
 #include "lv_port_indev.h"
 
+
+uint32_t my_tick_get_cb() {
+    return (esp_timer_get_time() / 1000LL);
+}
+
 inline void m5dial_lvgl_init()
 {
     M5.begin();
     lv_init();
     lv_port_disp_init();
     lv_port_indev_init();
+    lv_tick_set_cb(my_tick_get_cb);
 }
 
 inline void m5dial_lvgl_next()
@@ -26,7 +32,6 @@ inline void m5dial_lvgl_next()
     M5.update();
     uint32_t wait_ms = lv_timer_handler();
     M5.delay(wait_ms);
-    lv_tick_inc(wait_ms);
 }
 
 #endif
