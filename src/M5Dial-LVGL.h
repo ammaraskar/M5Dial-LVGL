@@ -15,10 +15,10 @@
 
 
 uint32_t my_tick_get_cb() {
-#ifndef LV_USE_SDL
-    return (esp_timer_get_time() / 1000LL);
-#else
+#if LV_USE_SDL
     return SDL_GetTicks();
+#else
+    return (esp_timer_get_time() / 1000LL);
 #endif
 }
 
