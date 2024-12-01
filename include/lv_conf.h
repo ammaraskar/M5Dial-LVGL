@@ -345,7 +345,11 @@
 #define LV_ATTRIBUTE_LARGE_RAM_ARRAY
 
 /*Place performance critical functions into a faster memory (e.g RAM)*/
+#ifdef LV_USE_SDL
+#define LV_ATTRIBUTE_FAST_MEM
+#else
 #define LV_ATTRIBUTE_FAST_MEM IRAM_ATTR
+#endif
 
 /*Export integer constant to binding. This macro is used with constants in the form of LV_<CONST> that
  *should also appear on LVGL binding API such as Micropython.*/
