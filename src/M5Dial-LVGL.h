@@ -15,7 +15,11 @@
 
 
 uint32_t my_tick_get_cb() {
+#ifndef LV_USE_SDL
     return (esp_timer_get_time() / 1000LL);
+#else
+    return SDL_GetTicks();
+#endif
 }
 
 inline void m5dial_lvgl_init()
