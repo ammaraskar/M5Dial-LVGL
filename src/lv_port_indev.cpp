@@ -77,5 +77,10 @@ static void encoder_init(void)
 static void encoder_read(lv_indev_t *indev_drv, lv_indev_data_t *data)
 {
     data->enc_diff = encoder.getCount(true);
+    if (data->enc_diff > 0) {
+        M5.Speaker.tone(8000, 20);
+    } else if (data->enc_diff < 0) {
+        M5.Speaker.tone(7000, 20);
+    }
     data->state = M5.BtnA.isPressed() ? LV_INDEV_STATE_PR : LV_INDEV_STATE_REL;
 }
